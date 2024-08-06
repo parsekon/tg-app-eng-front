@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+"use client"
+import { useCallback, useEffect, useState } from "react";
 import TelegramProvider from "./TelegramProvider";
 
 const FormAdd = () => {
   const [tg, setTg] = useState({});
+  const [user, setUser] = useState('test');
 
   useEffect(() => {
     function initTg() {
@@ -20,6 +22,27 @@ const FormAdd = () => {
   const onClickCloseBot = () => {
     tg.close();
   }
+
+  const onClickSendUsername = useCallback(() => {
+    const data = {
+        user,
+    }
+
+    tg.sendData(JSON.stringify(data));
+  }, [user])
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onClickSendUsername); 
+  return () => {
+    tg.offEvent('mainButtonClicked', onClickSendUsername);
+  }
+}, [onClickSendUsername]);
+
+useEffect(() => {
+    tg.MainButton.setParams({
+      text: 'Отправить'
+    });
+  }, [])
 
   return (
     <>
