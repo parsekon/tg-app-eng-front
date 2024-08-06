@@ -1,3 +1,4 @@
+"use client"
 import styles from '@/app/add/add.module.css';
 import FormAdd from '@/components/FormAdd';
 
