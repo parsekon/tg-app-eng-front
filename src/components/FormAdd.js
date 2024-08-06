@@ -23,7 +23,6 @@ const FormAdd = () => {
     const data = {
         success: 'WebApp закрыто!',
     }
-    tg.close();
     tg.sendData(JSON.stringify(data));
     console.log("TG >>>", tg);
   }
