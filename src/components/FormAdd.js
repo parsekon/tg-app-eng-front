@@ -21,28 +21,30 @@ const FormAdd = () => {
 
   const onClickCloseBot = () => {
     tg.close();
+    tg.sendData(JSON.stringify('WebApp закрыто!'))
+    console.log("TG >>>", tg);
   }
 
-  const onClickSendUsername = useCallback(() => {
-    const data = {
-        user,
-    }
+//   const onClickSendUsername = useCallback(() => {
+//     const data = {
+//         user,
+//     }
 
-    tg.sendData(JSON.stringify(data));
-  }, [user])
+//     tg.sendData(JSON.stringify(data));
+//   }, [user])
 
-  useEffect(() => {
-    tg.onEvent('mainButtonClicked', onClickSendUsername); 
-  return () => {
-    tg.offEvent('mainButtonClicked', onClickSendUsername);
-  }
-}, [onClickSendUsername]);
+//   useEffect(() => {
+//     tg?.onEvent('mainButtonClicked', onClickSendUsername); 
+//   return () => {
+//     tg?.offEvent('mainButtonClicked', onClickSendUsername);
+//   }
+// }, [tg, onClickSendUsername]);
 
-useEffect(() => {
-    tg.MainButton.setParams({
-      text: 'Отправить'
-    });
-  }, [])
+// useEffect(() => {
+//     tg.MainButton.setParams({
+//       text: 'Отправить'
+//     });
+//   }, [])
 
   return (
     <>
