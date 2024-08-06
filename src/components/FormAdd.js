@@ -15,6 +15,7 @@ const FormAdd = () => {
         console.log("Telegram WebApp is undefined, retrying…");
         setTimeout(initTg, 500);
       }
+
     }
     initTg();
   }, []);
@@ -22,7 +23,7 @@ const FormAdd = () => {
   const onClickCloseBot = () => {
     const data = {
         success: 'WebApp закрыто!',
-    }
+    } 
     tg.sendData(JSON.stringify(data));
     console.log("TG >>>", tg);
   }
