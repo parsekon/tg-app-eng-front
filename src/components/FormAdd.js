@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import TelegramProvider from "./TelegramProvider";
-import FormAdd from "./FormAdd";
 
 const FormAdd = () => {
   const [tg, setTg] = useState({});
