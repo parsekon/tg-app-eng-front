@@ -22,7 +22,7 @@ const FormAdd = () => {
 
   const onClickCloseBot = () => {
     const data = {
-        success: 'WebApp закрыто!',
+        tg
     } 
     tg.sendData(JSON.stringify(data));
     console.log("TG >>>", tg);
