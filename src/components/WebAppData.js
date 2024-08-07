@@ -17,7 +17,7 @@ const WebAppData = () => {
       }
     }
     initTg();
-  }, [tg]);
+  }, []);
 
   const onClickCloseBot = () => {
     tg.close();
@@ -26,7 +26,7 @@ const WebAppData = () => {
   return (
     <>
       <TelegramProvider />
-      <FormAdd tg={tg} onClickClose={onClickCloseBot} />
+      <button onClick={onClickCloseBot}>Закрыть</button>
     </>
   );
 };

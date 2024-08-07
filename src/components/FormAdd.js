@@ -1,8 +1,8 @@
 
-const FormAdd = (tg, onClickClose) => {
+const FormAdd = (tg, onClickCloseBot) => {
     return (
         <>
-            <button onClick={onClickClose}>Закрыть</button>
+            <button onClick={onClickCloseBot}>Закрыть</button>
             Форма
         </>
     )
