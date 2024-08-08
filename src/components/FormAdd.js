@@ -18,7 +18,11 @@ const FormAdd = () => {
   }, [tg]);
 
   const onClickCloseBot = () => {
+    const data = {
+      success: "By-By!!",
+    }
     tg.close();
+    tg.sendData(JSON.stringify(data));
     console.log("tg>>>>>>>>", tg)
   };
 
