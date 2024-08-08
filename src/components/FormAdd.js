@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useCallback, useEffect, useState } from "react";
 import TelegramProvider from "./TelegramProvider";
 
@@ -7,51 +8,48 @@ const FormAdd = () => {
   const [eng, setEng] = useState('');
   const [rus, setRus] = useState('');
 
+  let tgData;
   useEffect(() => {
-    function initTg() {
       if (window !== undefined && window.Telegram && window.Telegram.WebApp) {
-        const tgData = window.Telegram.WebApp;
-        setTg(tgData);
-      } else {
-        setTimeout(initTg, 500);
+         tgData = window.Telegram.WebApp;
       }
-    }
-    initTg();
-  }, []);
+      setTg(tgData)
+      console.log("tg>>", tg)
+  }, [tg]);
 
   const onClickCloseBot = () => {
     tg.close();
   };
 
-  const onSendData = useCallback(() => {
+  const onSendWord = useCallback(() => {
     const data = {
-      eng,
-      rus,
+      eng: 'Hello',
+      rus: "Привет",
     }
 
     tg.onSendData(JSON.stringify(data));
-  }, [eng, rus]);
+  }, []);
 
-  useEffect(() => {
-    tg?.onEvent('mainButtonClicked', onSendData); 
-  return () => {
-    tg?.offEvent('mainButtonClicked', onSendData);
-  }
-}, [onSendData]);
+//   useEffect(() => {
+//     tg?.onEvent('mainButtonClicked', onSendData); 
+//   return () => {
+//     tg?.offEvent('mainButtonClicked', onSendData);
+//   }
+// }, [tg]);
 
-useEffect(() => {
-  tg.MainButton.setParams({
-    text: 'Send data'
-  });
-}, [])
+// useEffect(() => {
+//   tg.MainButton.setParams({
+//     text: 'Send data'
+//   });
+// }, [])
 
-useEffect(() => {
-  if(!country || !street) {
-    tg.MainButton.hide();
-  } else {
-    tg.MainButton.show();
-  }
-}, [eng, rus])
+// useEffect(() => {
+//   if(!eng || !rus) {
+//     tg.MainButton.hide();
+//   } else {
+//     tg.MainButton.show();
+//   }
+// }, [eng, rus])
 
 const onChangeEng = (e) => {
   setEng(e.target.value);
@@ -64,7 +62,7 @@ const onChangeRus = (e) => {
   return (
     <>
       <TelegramProvider />
-      <button onClick={onClickCloseBot}>Закрыть</button>
+      <button onClick={onSendWord}>Отпрвить</button>
       <h1>Введите фразу:</h1>
       <input className={"input"} type="text" placeholder={"Фраза"} value={eng} onChange={onChangeEng} />
       <input className={"input"} type="text" placeholder={"Перевод"} value={rus} onChange={onChangeRus} />
