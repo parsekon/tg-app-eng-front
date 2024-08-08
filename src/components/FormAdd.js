@@ -14,21 +14,22 @@ const FormAdd = () => {
          tgData = window.Telegram.WebApp;
       }
       setTg(tgData)
-      console.log("tg>>", tg)
+      console.log("tg1>>", tg)
   }, [tg]);
 
   const onClickCloseBot = () => {
     tg.close();
+    console.log("tg>>>>>>>>", tg)
   };
 
-  const onSendWord = useCallback(() => {
-    const data = {
-      eng: 'Hello',
-      rus: "Привет",
-    }
-
-    tg.onSendData(JSON.stringify(data));
-  }, []);
+  // const onSendWord = useCallback(() => {
+  //   const data = {
+  //     eng: 'Hello',
+  //     rus: "Привет",
+  //   }
+  //   console.log("TG before>>>", tgData)
+  //   tg.onSendData(JSON.stringify(data));
+  // }, []);
 
 //   useEffect(() => {
 //     tg?.onEvent('mainButtonClicked', onSendData); 
@@ -62,7 +63,7 @@ const onChangeRus = (e) => {
   return (
     <>
       <TelegramProvider />
-      <button onClick={onSendWord}>Отпрвить</button>
+      <button onClick={onClickCloseBot}>Закрыть</button>
       <h1>Введите фразу:</h1>
       <input className={"input"} type="text" placeholder={"Фраза"} value={eng} onChange={onChangeEng} />
       <input className={"input"} type="text" placeholder={"Перевод"} value={rus} onChange={onChangeRus} />
