@@ -13,7 +13,7 @@ const FormAdd = () => {
       setTg(tgData);
       console.log("tg initialized:", tgData);
     }
-  }, []);
+  }, [tg]);
 
   const onClickCloseBot = () => {
     if (tg) {
@@ -74,7 +74,6 @@ const FormAdd = () => {
 
   return (
     <>
-      <TelegramProvider />
       <button onClick={onClickCloseBot}>Закрыть</button>
       <h1>Введите фразу:</h1>
       <input
