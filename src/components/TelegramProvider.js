@@ -6,11 +6,9 @@ import { useEffect } from "react";
 const TelegramProvider = () => {
 
     useEffect(() => {
-        // Проверяем, что Telegram Web App объект доступен
         if (window.Telegram?.WebApp) {
             const tg = window.Telegram.WebApp;
-            // Инициализация и настройка вашего приложения
-            tg.ready();  // Сообщает, что приложение готово
+            tg.ready(); 
         }
     }, []);
 

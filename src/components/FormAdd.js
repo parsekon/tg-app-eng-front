@@ -1,62 +1,68 @@
 "use client";
-import React from "react";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TelegramProvider from "./TelegramProvider";
 
 const FormAdd = () => {
-  const [tg, setTg] = useState({});
+  const [tg, setTg] = useState(null);
   const [eng, setEng] = useState("Hello");
   const [rus, setRus] = useState("Привет");
 
-  let tgData;
   useEffect(() => {
-    if (window !== undefined && window.Telegram && window.Telegram.WebApp) {
-      tgData = window.Telegram.WebApp;
-
+    if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
+      const tgData = window.Telegram.WebApp;
+      setTg(tgData);
+      console.log("tg initialized:", tgData);
     }
-    setTg(tgData);
-    console.log("tg1>>", tgData);
-  }, [tg]);
+  }, []);
 
   const onClickCloseBot = () => {
-    const data = {
-      success: "By-By!!",
-    };
-    tg.close();
-    tg.sendData(JSON.stringify(data));
-    console.log("tg>>>>>>>>", tg);
+    if (tg) {
+      const data = {
+        success: "By-By!!",
+      };
+      tg.sendData(JSON.stringify(data));
+      tg.close();
+      console.log("tg closed:", tg);
+    }
   };
 
+  const onSendWord = useCallback(() => {
+    if (tg) {
+      const data = {
+        eng,
+        rus,
+      };
+      console.log("Sending data:", data);
+      tg.sendData(JSON.stringify(data));
+    }
+  }, [eng, rus, tg]);
 
-  // const onSendWord = useCallback(() => {
-  //   const data = {
-  //     eng,
-  //     rus
-  //   }
-  //   console.log("TG before>>>", tgData)
-  //   tg.onSendData(JSON.stringify(data));
-  // }, [eng, rus, tg]);
+  useEffect(() => {
+    if (tg) {
+      tg.onEvent("mainButtonClicked", onSendWord);
+      return () => {
+        tg.offEvent("mainButtonClicked", onSendWord);
+      };
+    }
+  }, [onSendWord, tg]);
 
-  //   useEffect(() => {
-  //     tg.onEvent('mainButtonClicked', onSendWord);
-  //   return () => {
-  //     tg.offEvent('mainButtonClicked', onSendWord);
-  //   }
-  // }, [onSendWord, tg]);
+  useEffect(() => {
+    if (tg) {
+      tg.MainButton.setParams({
+        text: "Send data",
+      });
+    }
+  }, [tg]);
 
-  // useEffect(() => {
-  //   tg.MainButton.setParams({
-  //     text: 'Send data'
-  //   });
-  // }, [])
-
-  // useEffect(() => {
-  //   if(!eng || !rus) {
-  //     tg.MainButton.hide();
-  //   } else {
-  //     tg.MainButton.show();
-  //   }
-  // }, [eng, rus])
+  useEffect(() => {
+    if (tg) {
+      if (!eng || !rus) {
+        tg.MainButton.hide();
+      } else {
+        tg.MainButton.show();
+      }
+    }
+  }, [eng, rus, tg]);
 
   const onChangeEng = (e) => {
     setEng(e.target.value);
