@@ -16,7 +16,7 @@ const TelegramProvider = () => {
 
     return (
         <>
-            <Script src="https://telegram.org/js/telegram-web-app.js" strategy="lazyOnload" />
+            <Script src="https://telegram.org/js/telegram-web-app.js"  />
         </>
     );
 }
