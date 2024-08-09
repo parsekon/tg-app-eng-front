@@ -4,8 +4,8 @@ import TelegramProvider from "./TelegramProvider";
 
 const FormAdd = () => {
   const [tg, setTg] = useState(null);
-  const [eng, setEng] = useState("Hello");
-  const [rus, setRus] = useState("Привет");
+  const [eng, setEng] = useState("");
+  const [rus, setRus] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
