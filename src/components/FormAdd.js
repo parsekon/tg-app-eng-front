@@ -11,25 +11,15 @@ const FormAdd = () => {
     let tgData;
     if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
       tgData = window.Telegram.WebApp;
-
     } 
       setTg(tgData);
       console.log("tg initialized:", tgData);
-
   }, [tg]);
 
   const onClickCloseBot = () => {
     if (tg) {
-      const data = {
-        success: "By-By!!",
-      };
-      tg.sendData(JSON.stringify(data));
       tg.close();
-      console.log("tg closed:", tg);
-    } else {
-      console.log("и это тоже не работает!!!")
     }
-
   };
 
   const onSendWord = useCallback(() => {
@@ -38,7 +28,6 @@ const FormAdd = () => {
         eng,
         rus,
       };
-      console.log("Sending data:", data);
       tg.sendData(JSON.stringify(data));
     }
   }, [eng, rus, tg]);
@@ -55,7 +44,7 @@ const FormAdd = () => {
   useEffect(() => {
     if (tg) {
       tg.MainButton.setParams({
-        text: "Send data",
+        text: "Новая карточка:",
       });
     }
   }, [tg]);
@@ -82,14 +71,14 @@ const FormAdd = () => {
     <>
       <button onClick={onClickCloseBot}>Закрыть</button>
       <h1>Введите фразу:</h1>
-      <input
+      <textarea
         className={"input"}
         type="text"
         placeholder={"Фраза"}
         value={eng}
         onChange={onChangeEng}
       />
-      <input
+      <textarea
         className={"input"}
         type="text"
         placeholder={"Перевод"}
