@@ -8,11 +8,14 @@ const FormAdd = () => {
   const [rus, setRus] = useState("");
 
   useEffect(() => {
+    let tgData;
     if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
-      const tgData = window.Telegram.WebApp;
+      tgData = window.Telegram.WebApp;
+
+    } 
       setTg(tgData);
       console.log("tg initialized:", tgData);
-    }
+
   }, [tg]);
 
   const onClickCloseBot = () => {
@@ -23,7 +26,10 @@ const FormAdd = () => {
       tg.sendData(JSON.stringify(data));
       tg.close();
       console.log("tg closed:", tg);
+    } else {
+      console.log("и это тоже не работает!!!")
     }
+
   };
 
   const onSendWord = useCallback(() => {
